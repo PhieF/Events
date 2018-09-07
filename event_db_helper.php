@@ -18,7 +18,7 @@ class EVENTDBHelper {
 		$country = mysqli_real_escape_string($conn,$country);
 		$city = mysqli_real_escape_string($conn,$city);
 		$address = mysqli_real_escape_string($conn,$address);
-		$hash_ip = substr(md5($_SERVER['REMOTE_ADDR']),0,12);
+		$hash_ip = substr(md5($_SERVER['REMOTE_ADDR']),0,5);
 
 		$sql = "INSERT INTO ".$CONFIG["table_prefix"]."event (title, description, banner, date, country, city, address, hash_ip)
 		VALUES ('$title', '$description', '$banner', '$date', '$country', '$city', '$address', '$hash_ip')";
@@ -45,7 +45,7 @@ if ($conn->query($sql) !== TRUE) {
 		}
 		$id = mysqli_real_escape_string($conn,$id);
 		$name = mysqli_real_escape_string($conn,$name);
-		$hash_ip = substr(md5($_SERVER['REMOTE_ADDR']),0,12);
+		$hash_ip = substr(md5($_SERVER['REMOTE_ADDR']),0,5);
 		$sql = "SELECT count(name) as count FROM ".$CONFIG["table_prefix"]."attending WHERE event_id='$id' AND hash_ip='$hash_ip'"; 
 		$result = $conn->query($sql);
 		if($result->fetch_assoc()['count']>0)
